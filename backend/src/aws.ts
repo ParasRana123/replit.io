@@ -79,3 +79,38 @@ export async function copyS3Folder(sourcePrefix: string, destinationPrefix: stri
         console.error('Error copying folder:', error);
     }
 }
+
+function writeFile(filePath: string, fileData: Buffer): Promise<void> {
+    return new Promise(async (resolve, reject) => {
+        await createFolder(path.dirname(filePath));
+
+        fs.writeFile(filePath, fileData, (err) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve()
+            }
+        })
+    });
+}
+
+function createFolder(dirName: string) {
+    return new Promise<void>((resolve, reject) => {
+        fs.mkdir(dirName, { recursive: true }, (err) => {
+            if (err) {
+                return reject(err)
+            }
+            resolve()
+        });
+    })
+}
+
+export const saveToS3 = async (key: string, filePath: string, content: string): Promise<void> => {
+    const params = {
+        Bucket: process.env.S3_BUCKET ?? "",
+        Key: `${key}${filePath}`,
+        Body: content
+    }
+
+    await s3.putObject(params).promise()
+}
