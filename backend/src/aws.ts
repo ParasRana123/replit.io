@@ -1,43 +1,44 @@
 import { S3 } from "aws-sdk"
-import fs from "fs"
-import path from "path"
-import dotenv from "dotenv"
-dotenv.config();
+import fs from "fs";
+import path from "path";
 
 const s3 = new S3({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     endpoint: process.env.S3_ENDPOINT
 })
-
-export const fetchS3folder = async (key: string , localPath: string): Promise<void> => {
+export const fetchS3Folder = async (key: string, localPath: string): Promise<void> => {
     try {
         const params = {
             Bucket: process.env.S3_BUCKET ?? "",
             Prefix: key
         };
+
         const response = await s3.listObjectsV2(params).promise();
-        if(response.Contents) {
+        if (response.Contents) {
+            // Use Promise.all to run getObject operations in parallel
             await Promise.all(response.Contents.map(async (file) => {
                 const fileKey = file.Key;
-                if(fileKey) {
+                if (fileKey) {
                     const getObjectParams = {
                         Bucket: process.env.S3_BUCKET ?? "",
                         Key: fileKey
                     };
 
                     const data = await s3.getObject(getObjectParams).promise();
-                    if(data.Body) {
+                    if (data.Body) {
                         const fileData = data.Body;
                         const filePath = `${localPath}/${fileKey.replace(key, "")}`;
+                        
                         await writeFile(filePath, fileData);
+
                         console.log(`Downloaded ${fileKey} to ${filePath}`);
                     }
                 }
             }));
         }
-    } catch(error) {
-        console.log("Error fetching  the folders: " , error);
+    } catch (error) {
+        console.error('Error fetching folder:', error);
     }
 };
 
