@@ -27,13 +27,17 @@ export const fetchS3Folder = async (key: string, localPath: string): Promise<voi
 
                     const data = await s3.getObject(getObjectParams).promise();
                     if (data.Body) {
-                        const fileData = data.Body;
+                        const fileData = data.Body instanceof Buffer
+                        ? data.Body
+                        : Buffer.from(data.Body as string);
+
                         const filePath = `${localPath}/${fileKey.replace(key, "")}`;
-                        
+    
                         await writeFile(filePath, fileData);
 
                         console.log(`Downloaded ${fileKey} to ${filePath}`);
                     }
+
                 }
             }));
         }
