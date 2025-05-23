@@ -38,4 +38,13 @@ export class TerminalManager {
         });
         return term;
     }
+
+    write(terminalId: string , data: string) {
+        this.sessions[terminalId]?.terminal.write(data);
+    }
+
+    clear(terminalId: string) {
+        this.sessions[terminalId].terminal.kill();
+        delete this.sessions[terminalId];
+    }
 }
