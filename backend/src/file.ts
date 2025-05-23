@@ -23,3 +23,15 @@ export const fetchDir = (dir: string, baseDir: string): Promise<File[]>  => {
         });       
     });
 }
+
+export const fetchFileContent = (file: string): Promise<string> => {
+    return new Promise((resolve, reject) => {
+        fs.readFile(file, "utf8", (err, data) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(data);
+            }
+        });
+    })
+}
