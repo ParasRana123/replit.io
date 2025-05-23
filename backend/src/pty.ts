@@ -9,10 +9,33 @@ The Terminal Manager should:
 */
 
 import path from "path";
-import { fork , IPty } from "node-pty";
+import { spawn , IPty } from "node-pty";
 
 const SHELL = "bash";
 
 export class TerminalManager {
-    
+    private sessions: { [id: string]: {terminal: IPty, replId: string;} } = {};
+
+    constructor() {
+        this.sessions = {};
+    }
+
+    // Creating a new terminal instance
+    createPty(id: string, replId: string, onData: (data: string, id: number) => void) {
+        let term = spawn(SHELL , [] , {
+            cols: 100,
+            name: 'xterm',
+            cwd: path.join(__dirname , `../tmp/${replId}`)
+        });
+
+        term.on('data', (data: string) => onData(data, term.pid));
+        this.sessions[id] = {
+            terminal: term,
+            replId
+        };
+        term.on('exit', () => {
+            delete this.sessions[term.pid];
+        });
+        return term;
+    }
 }
