@@ -1,5 +1,5 @@
 
-const INSTANCE_URI = "http://localhost:3000";
+const INSTANCE_URI = "http://localhost:3001";
 
 export const Output = () => {
     return <div style={{height: "40vh", background: "white"}}>

@@ -11,8 +11,9 @@ The Terminal Manager should:
 import path from "path";
 import { spawn, IPty } from "node-pty";
 import { EventEmitter } from "events";
+import os from "os";
 
-const SHELL = "bash";
+const SHELL = os.platform() === "win32" ? process.env.COMSPEC || "cmd.exe" : "bash";
 
 export class TerminalManager {
   private sessions: { [id: string]: { terminal: IPty; replId: string } } = {};
@@ -25,17 +26,19 @@ export class TerminalManager {
     const term = spawn(SHELL, [], {
       cols: 100,
       name: "xterm",
-      cwd: path.join(__dirname, `../tmp/${replId}`)
+      cwd: path.join(__dirname, `../tmp/${replId}`),
     }) as IPty & EventEmitter;
 
     term.on("data", (data: string) => onData(data, term.pid));
     this.sessions[id] = {
       terminal: term,
-      replId
+      replId,
     };
+
     term.on("exit", () => {
-      delete this.sessions[term.pid];
+      delete this.sessions[term.pid]; // ⚠️ This might be buggy, see note below
     });
+
     return term;
   }
 
@@ -44,7 +47,7 @@ export class TerminalManager {
   }
 
   clear(terminalId: string) {
-    this.sessions[terminalId].terminal.kill();
+    this.sessions[terminalId]?.terminal.kill();
     delete this.sessions[terminalId];
   }
 }
