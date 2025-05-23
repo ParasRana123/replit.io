@@ -35,3 +35,14 @@ export const fetchFileContent = (file: string): Promise<string> => {
         });
     })
 }
+
+export const saveFile = async (file: string, content: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        fs.writeFile(file, content, "utf8", (err) => {
+            if (err) {
+                return reject(err);
+            }
+            resolve();
+        });
+    });
+}
