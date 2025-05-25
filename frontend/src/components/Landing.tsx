@@ -78,6 +78,10 @@ export const Landing = () => {
         >
           <option value="node-js">Node.js</option>
           <option value="python">Python</option>
+          <option value="react-ts">React Typescript</option>
+          <option value="c++">C++</option>
+          <option value="next-js">Next.js</option>
+
         </StyledSelect>
         <StyledButton disabled={loading} onClick={async () => {
           setLoading(true);
