@@ -9,42 +9,75 @@ const SLUG_WORKS = ["car", "dog", "computer", "person", "inside", "word", "for",
 const SERVICE_URL = "http://localhost:3000";
 
 /** Styled components */
+/** Styled components */
 const Container = styled.div`
-  padding: 20px;
+  padding: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #0d1117;
+  min-height: 100vh;
+  font-family: 'Fira Code', monospace;
 `;
 
 const Title = styled.h1`
-  color: white;
+  color: #58a6ff;
+  font-size: 2rem;
+  margin-bottom: 20px;
 `;
 
 const StyledInput = styled.input`
   margin: 10px 0;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  width: 300px;
+  background-color: #161b22;
+  color: #c9d1d9;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  font-family: 'Fira Code', monospace;
+  &:focus {
+    outline: none;
+    border-color: #58a6ff;
+  }
 `;
 
 const StyledSelect = styled.select`
   margin: 10px 0;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  width: 320px;
+  background-color: #161b22;
+  color: #c9d1d9;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  font-family: 'Fira Code', monospace;
+  &:focus {
+    outline: none;
+    border-color: #58a6ff;
+  }
 `;
 
 const StyledButton = styled.button`
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
+  margin-top: 20px;
+  padding: 10px 24px;
+  background-color: #238636;
+  color: #ffffff;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: bold;
+  font-family: 'Fira Code', monospace;
+  transition: background-color 0.3s ease;
+
   &:hover {
-    background-color: #0056b3;
+    background-color: #2ea043;
+  }
+
+  &:disabled {
+    background-color: #30363d;
+    cursor: not-allowed;
   }
 `;
+
 
 /** Helper function */
 function getRandomSlug() {
