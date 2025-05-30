@@ -74,6 +74,8 @@ https://www.cloudflare.com/en-in/
 cd backend
 ```
 
+The creditionals should be shored something like this in the `.env` file.
+
 ```bash
 PORT=
 S3_BUCKET=
@@ -82,7 +84,7 @@ AWS_SECRET_ACCESS_KEY=
 S3_ENDPOINT=
 ```
 
-> **Note**: You can take inspiration from the `.env.example` created in the `backend directory`.
+> **Note**: You can take inspiration from the `.env.example` file  created in the `backend directory`.
 
 6. **Start the Backend server**
 
