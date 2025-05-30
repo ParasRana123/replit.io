@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 import { File, buildFileTree, RemoteFile } from "./external/editor/utils/file-manager";
 import { FileTree } from "./external/editor/components/file-tree";
 import { Socket } from "socket.io-client";
+import { v4 as uuidv4 } from "uuid";
 
 // credits - https://codesandbox.io/s/monaco-tree-pec7u
 export const Editor = ({
@@ -18,6 +19,7 @@ export const Editor = ({
     selectedFile: File | undefined;
     socket: Socket;
 }) => {
+
   const rootDir = useMemo(() => {
     return buildFileTree(files);
   }, [files]);
