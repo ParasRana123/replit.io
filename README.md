@@ -5,10 +5,10 @@ An interactive, cloud-powered coding platform that enables users to write, execu
 ## Features
 
 - Select from multiple programming languages to start coding instantly
-- Preloaded boilerplate files fetched from AWS S3 for quick project initialization
+- Preloaded boilerplate files fetched from `AWS S3` for quick project initialization
 - Unique `replID` assigned to each session for persistent storage and project access
 - Fully functional in-browser terminal powered by `node-pty`
-- Real-time terminal output streamed using WebSockets
+- Real-time terminal output streamed using `WebSockets`
 - Isolated sandbox environments for each user to ensure security and scalability
 
 ## Tech Stack
@@ -22,20 +22,19 @@ An interactive, cloud-powered coding platform that enables users to write, execu
 ## Project Structure
 
 ```bash
-├── vercel-upload-service/     # Code for uploading files to S3 
+├── backend/            # all the backend code
 │   ├── src/           
-│   │     ├── aws.ts         
-│   │     ├── file.ts     
-│   │     ├── index.ts     
-│   │     └── utils.ts   
-├── vercel-deploy-service/    # Code for running the build command
+│   │     ├── aws.ts    # code for uploading files to S3 
+│   │     ├── fs.ts     # all the fetch file and directory logic
+│   │     ├── http.ts   # creating the http server  
+│   │     ├── pty.ts    # all the logic for integrating terminal
+│   │     ├── ws.ts     # all the websockets logic here
+│   │     └── index.ts  # main backend routes here 
+│   │ 
+├── frontend/           # all the frontend code 
 │   ├── src/        
-│   │     ├── aws.ts             
-│   │     ├── index.ts            
-│   │     └── utils.ts             
-├── vercel-request-handler/   # Code for handling the requests
-│   ├── src/        
-│   │     ├── index.ts  
+│   │     ├── components/ # all components for frontend          
+│   │     └── App.tsx     # main frontend routes here        
 └── README.md
 ```
 
@@ -45,77 +44,54 @@ An interactive, cloud-powered coding platform that enables users to write, execu
 
 ```bash
 git clone [repository-url]
-cd vercel
+cd replit.io
 ```
 
-2. **Install the Upload Service dependencies**
+2. **Install the Bcakend dependencies**
 
 ```bash
-cd vercel-upload-service
+cd backend
 npm install
 ```
 
-3. **Install the Deploy Service dependencies**
-
-```bash
-cd vercel-deploy-service
-npm install
-```
-
-4. **Install the Request Handler dependencies**
-
-```bash
-cd request-handler-service
-npm install
-```
-
-5. **Install the Frontend dependencies**
+3. **Install the Frontend dependencies**
 
 ```bash
 cd frontend
 npm install
 ```
 
-6. **Create a `.env` file in all the three folders `vercel-upload-service`, `vercel-deploy-service` and `vercel-request-handler`**
-
-    Navigate to these folders and create a `.env` using:
-    ``` bash
-    cd vercel-upload-service
-    echo. > .env
-    ```  
-
-    ``` bash
-    cd vercel-deploy-service
-    echo. > .env
-    ```
-
-    ``` bash
-    cd vercel-request-handler
-    echo. > .env
-    ```
-
-7. **Start the vercel-upload-service server**
+4. **Get your AWS creditionals by navigatinating to the official website and the creating a bucket inside the R2 Object Store section.**
 
 ```bash
-cd vercel-upload-service
+Official website: 
+https://www.cloudflare.com/en-in/
+```
+
+5. **Create a .env file with your AWS S3 credentials in the backend folder**
+
+```bash
+cd backend
+```
+
+```bash
+PORT=
+S3_BUCKET=
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+S3_ENDPOINT=
+```
+
+> **Note**: You can take inspiration from the `.env.example` created in the `backend directory`.
+
+6. **Start the Backend server**
+
+```bash
+cd backend
 npm run dev
 ```
 
-8. **Start the vercel-deploy-service server**
-
-```bash
-cd vercel-dpeloy-service
-npm run dev
-```
-
-9. **Start the vercel-request-handler server**
-
-```bash
-cd request-handler-service
-npm run dev
-```
-
-10. **Start the frontend application**
+7. **Start the Frontend application**
 
 ```bash
 cd frontend
