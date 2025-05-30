@@ -42,7 +42,7 @@ An interactive, cloud-powered coding platform that enables users to write, execu
 
 1. **User Initialization**
    - User selects a programming language and is assigned a unique `replID`.
-   - The server fetches boilerplate files from AWS S3 based on the selected language.
+   - The server fetches boilerplate files from `AWS S3` based on the selected language.
 
 2. **Editor & Terminal**
    - The code editor loads pre-initialized files into the browser.
@@ -53,7 +53,7 @@ An interactive, cloud-powered coding platform that enables users to write, execu
    - Output from the command is streamed back live to the frontend terminal window.
 
 4. **Persistent Storage**
-   - Edited files are saved back to AWS S3 with the user’s `replID`.
+   - Edited files are saved back to `AWS S3` with the user’s `replID`.
    - When the user returns, the same files are reloaded from S3 for seamless continuity.
 
 5. **Session Isolation**
@@ -124,10 +124,10 @@ npm run dev
 
 ## Future Integrations
 
-- Integrating Container Orchestration using Dockers and Kubernetes.
+- Integrating `Container Orchestration` using `Dockers` and `Kubernetes`.
 - Each file system along with the language is assigned a separate container which is isolated from the main system. 
-- Integrating services like like Ingress controller and Pods provided by the kubernetes cluster.
-- Integrating advanced technologies like Nix that replit actually uses along with caching dependencies.
+- Integrating services like like `Ingress controller` and `Pods` provided by the `kubernetes cluster`.
+- Integrating advanced technologies like `Nix` that replit actually uses along with `caching dependencies`.
 
 
 ## Contributing
